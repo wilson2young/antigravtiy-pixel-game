@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
 import './index.css';
+import { useTranslation } from './i18n';
+import LanguageSelector from './components/LanguageSelector';
 
 const API_URL = import.meta.env.VITE_GOOGLE_APP_SCRIPT_URL || 'mock';
 const THRESHOLD = parseInt(import.meta.env.VITE_PASS_THRESHOLD || '3', 10);
 const QUESTION_COUNT = parseInt(import.meta.env.VITE_QUESTION_COUNT || '5', 10);
 
 export default function App() {
+  const { t } = useTranslation();
   const [userId, setUserId] = useState('');
   const [gameState, setGameState] = useState('HOME'); // HOME, LOADING, PLAYING, SUBMITTING, RESULT
   const [questions, setQuestions] = useState([]);
@@ -98,26 +101,27 @@ export default function App() {
     <div className="pixel-box">
       {gameState === 'HOME' && (
         <>
-          <h1 style={{ color: 'var(--accent)' }}>PIXEL QUEST</h1>
-          <p style={{ fontSize: '10px', marginBottom: '30px' }}>PRESS START TO PLAY</p>
-          <input 
-            className="pixel-input" 
-            placeholder="ENTER YOUR ID" 
-            value={userId} 
-            onChange={(e) => setUserId(e.target.value)} 
+          <LanguageSelector />
+          <h1 style={{ color: 'var(--accent)', margin: '10px 0', fontSize: '24px' }}>{t('home.title')}</h1>
+          <p style={{ fontSize: '10px', margin: '10px 0 30px 0' }}>{t('home.subtitle')}</p>
+          <input
+            className="pixel-input"
+            placeholder={t('home.inputPlaceholder')}
+            value={userId}
+            onChange={(e) => setUserId(e.target.value)}
           />
-          <button className="pixel-btn" onClick={startGame}>START</button>
+          <button className="pixel-btn" onClick={startGame}>{t('common.start')}</button>
         </>
       )}
 
-      {gameState === 'LOADING' && <p>LOADING STAGE...</p>}
-      {gameState === 'SUBMITTING' && <p>CALCULATING SCORE...</p>}
+      {gameState === 'LOADING' && <p>{t('game.loading')}</p>}
+      {gameState === 'SUBMITTING' && <p>{t('game.submitting')}</p>}
 
       {gameState === 'PLAYING' && questions.length > 0 && (
         <>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '10px', marginBottom: '10px' }}>
-            <span>PLAYER: {userId.toUpperCase()}</span>
-            <span>STAGE {currentQIndex + 1}/{QUESTION_COUNT}</span>
+            <span>{t('game.player')}: {userId.toUpperCase()}</span>
+            <span>{t('game.stage')} {currentQIndex + 1}/{QUESTION_COUNT}</span>
           </div>
           
           <img 
@@ -147,12 +151,12 @@ export default function App() {
 
       {gameState === 'RESULT' && resultData && (
         <>
-          <h2 style={{ color: resultData.passed ? '#00ff00' : '#ff0000' }}>
-            {resultData.passed ? 'STAGE CLEARED!' : 'GAME OVER'}
+          <h2 style={{ color: resultData.passed ? '#00ff00' : '#ff0000', margin: '10px 0' }}>
+            {resultData.passed ? t('result.cleared') : t('result.gameOver')}
           </h2>
-          <p style={{ margin: '20px 0' }}>SCORE: {resultData.score} / {QUESTION_COUNT}</p>
-          <p style={{ fontSize: '10px', marginBottom: '30px' }}>THRESHOLD: {THRESHOLD}</p>
-          <button className="pixel-btn" onClick={() => { setGameState('HOME'); setUserId(''); }}>PLAY AGAIN</button>
+          <p className="result-text" style={{ margin: '15px 0', fontSize: '14px' }}>{t('result.score')}: {resultData.score} / {QUESTION_COUNT}</p>
+          <p className="result-text" style={{ margin: '15px 0', fontSize: '10px' }}>{t('result.threshold')}: {THRESHOLD}</p>
+          <button className="pixel-btn" onClick={() => { setGameState('HOME'); setUserId(''); }}>{t('common.playAgain')}</button>
         </>
       )}
     </div>

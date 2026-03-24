@@ -1,0 +1,25 @@
+{
+  "common": {
+    "start": "开始",
+    "playAgain": "再玩一次"
+  },
+  "home": {
+    "title": "PIXEL QUEST",
+    "subtitle": "按开始键游玩",
+    "inputPlaceholder": "输入你的ID",
+    "languageLabel": "语言"
+  },
+  "game": {
+    "player": "玩家",
+    "stage": "关卡",
+    "loading": "加载关卡...",
+    "submitting": "计算分数...",
+    "backToHome": "返回"
+  },
+  "result": {
+    "cleared": "关卡通过！",
+    "gameOver": "游戏结束",
+    "score": "得分",
+    "threshold": "通关门槛"
+  }
+}

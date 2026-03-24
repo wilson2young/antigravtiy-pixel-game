@@ -1,0 +1,25 @@
+{
+  "common": {
+    "start": "START",
+    "playAgain": "PLAY AGAIN"
+  },
+  "home": {
+    "title": "PIXEL QUEST",
+    "subtitle": "PRESS START TO PLAY",
+    "inputPlaceholder": "ENTER YOUR ID",
+    "languageLabel": "LANGUAGE"
+  },
+  "game": {
+    "player": "PLAYER",
+    "stage": "STAGE",
+    "loading": "LOADING STAGE...",
+    "submitting": "CALCULATING SCORE...",
+    "backToHome": "BACK"
+  },
+  "result": {
+    "cleared": "STAGE CLEARED!",
+    "gameOver": "GAME OVER",
+    "score": "SCORE",
+    "threshold": "THRESHOLD"
+  }
+}
